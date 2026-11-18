@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>影响解释包平台</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h1>影响解释包平台</h1>
+  <span class="sub">修订接收 → 依赖重算 → 解释包构建 · 同一修订跨报表共用同一输入边界</span>
+</header>
+<main>
+  <section class="card">
+    <h2>① 提交修订批</h2>
+    <p class="hint">对上游明细的修订（更新 / 删除 / 新增）。接收时会钉住输入边界版本，该批所有报表共用此边界；之后来源继续更新不影响本批。</p>
+    <textarea id="changesJson" rows="9" spellcheck="false"></textarea>
+    <div class="row">
+      <button id="fillExample">填入示例</button>
+      <button id="submitBtn" class="primary">提交修订</button>
+      <span id="submitMsg"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>② 修订批列表 <span class="hint">（每 2 秒自动刷新，点击行查看详情）</span></h2>
+    <table id="batchTable">
+      <thead><tr>
+        <th>批次</th><th>输入边界</th><th>变更数</th><th>重算状态</th><th>解释包</th><th>创建时间</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="card" id="detailCard" style="display:none">
+    <h2>③ 批次详情 <span id="detailTitle" class="mono"></span></h2>
+
+    <div id="pkgPanel">
+      <h3>解释包</h3>
+      <div class="row">
+        <button id="buildBtn" class="primary">构建解释包</button>
+        <button id="cancelBtn" style="display:none">取消构建</button>
+        <button id="resumeBtn" style="display:none">恢复构建</button>
+        <a id="downloadBtn" class="button primary" href="#" style="display:none">下载解释包</a>
+      </div>
+      <div class="progress"><div id="pkgBar"></div></div>
+      <div id="pkgStatus" class="hint"></div>
+    </div>
+
+    <div id="impactView"></div>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
